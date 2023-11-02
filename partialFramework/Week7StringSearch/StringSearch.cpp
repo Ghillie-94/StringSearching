@@ -35,8 +35,41 @@ void badCharHeur(std::string pattern, int length, int in_pattern[ALPHABET_SIZE])
 std::vector<int> BMH(std::string text, std::string pattern)
 {
 	// Assessed [2]: Information is provided in lecture 7B
+	int patternLength = pattern.size();
+	int textLength = text.size();
+	int shiftPos = 0;
+	int badChar[ALPHABET_SIZE];
+	std::vector<int> results;
+	badCharHeur(pattern, patternLength, badChar);
+
+	while (shiftPos <= textLength - patternLength)
+	{
+		int unMatchedChars = patternLength - 1;
+
+		while (unMatchedChars >= 0 && pattern[unMatchedChars] == text[shiftPos + unMatchedChars])
+		{
+			unMatchedChars--;
+		}
+		if (unMatchedChars < 0)
+		{
+			results.push_back(shiftPos);
+			if (shiftPos + patternLength < textLength)
+			{
+				shiftPos += patternLength - badChar[text[shiftPos + patternLength]];
+			}
+			else
+			{
+				shiftPos++;
+			}
+		}
+		else
+		{
+			shiftPos += std::max(1, unMatchedChars - badChar[text[shiftPos + unMatchedChars]]);
+		}
+	}
 	
-	return std::vector<int>();	// TODO: Remove when implementation complete.
+	return results;
+	
 }
 
 /*
