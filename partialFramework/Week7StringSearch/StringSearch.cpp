@@ -16,7 +16,15 @@ const int ALPHABET_SIZE = 255;		// characters.
 void badCharHeur(std::string pattern, int length, int in_pattern[ALPHABET_SIZE])
 {
 	// Assessed [1]: Information is provided in lecture 7B
-	
+	for (int i = 0; i < 255; ++i)
+	{
+		in_pattern[i] = -1;
+	}
+
+	for (int j = 0; j <= pattern.length() - 1; ++j)
+	{
+		in_pattern[int(pattern[j])] = j;
+	}
 }
 
 /*
