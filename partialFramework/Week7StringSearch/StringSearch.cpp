@@ -110,13 +110,46 @@ void computeLPS(std::string pat, int M, int* lps)
 std::vector<int> KMP(std::string text, std::string pattern)
 {
 	// ASSESSED [2]: Information is provided in lecture 7C
-	int patternLength = pattern.size();
+	
+	int patternLength = pattern.length();
 	int textLength = text.length();
-
-	int lps[patternLength];
 	
 
-	return std::vector<int>(); // TODO: Remove when implementation complete.
+	int* lps = new int [patternLength];
+
+	computeLPS(pattern, patternLength, lps);
+
+	int i = 0; //index for text
+	int j = 0; //index for pattern
+	std::vector<int> results;
+
+	while ((textLength - i) >= (patternLength - j))
+	{
+		if (pattern[j] == text[i])
+		{
+			++i;
+			++j;
+		}
+		if (j == patternLength)
+		{
+			results.push_back(i - j);
+			j = lps[j - 1];
+		}
+		else if (i < textLength && pattern[j] != text[i])
+		{
+			if (j != 0)
+			{
+				j = lps[j - 1];
+			}
+			else
+			{
+				++i;
+			}
+		}
+	}
+	
+
+	return results; // TODO: Remove when implementation complete.
 }
 
 
