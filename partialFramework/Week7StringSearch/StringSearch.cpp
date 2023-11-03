@@ -149,57 +149,7 @@ std::vector<int> KMP(std::string text, std::string pattern)
 	}
 	
 
-	return results; // TODO: Remove when implementation complete.
+	return results; 
 }
 
 
-/*
-* Main included for testing only. This may not be sufficient for getting full marks, do your own testing also.
-* Delete or comment out before submission or [-1].
-*/
-int main()
-{
-	// TEST BAD CHARACTER HEURISTIC
-	int badChar[ALPHABET_SIZE];
-	badCharHeur("string", 6, badChar);
-	std::cout << "### TEST 1\nTesting bad character heuristic table. \nExpecting mostly -1 with appropriate values for 'string', e.g.: g = 5 and t = 1:\n";
-	for (int i = 65; i < 123; i++)	// Only comparing char values from 65 to 123 so we get alphabetical characters. Expand to 0..255 if you want to see the others.
-	{
-		std::cout << static_cast<char>(i) << " | " << badChar[i] << ",\t\t";
-		if (i % 8 == 0) std::cout << "\n";		// new line every so often
-	}
-	
-	// TEST BMH
-	std::string text = "there was once a fox called foxxy mcfox in a little fox house for foxes";
-	std::string pattern = "fox";
-	std::vector<int> r = BMH(text, pattern);
-	std::cout << "\n\n### TEST 2\nTesting BMH algorithm with the following:\ntext: " << text << "\npattern: " << pattern << "\nexpecting: 17, 28, 36, 52 and 66\n";
-	for (int res : r)
-	{
-		std::cout << "> Pattern found to occur at position: " << res << "\n";
-	}
-
-	// TEST LPS TABLE
-	std::cout << "\n\n### TEST 3\nTesting LPS table with the pattern 'AAABAAA'\nexpecting: [0, 1, 2, 0, 1, 2, 3]\n[";
-	std::string lpsTest = "AAABAAA";
-	int* lps = new int[lpsTest.length()];
-	computeLPS(lpsTest, lpsTest.length(), lps);
-	for (int i = 0; i < lpsTest.size()-1; i++)
-	{
-		std::cout << lps[i] << ",";
-	}
-	std::cout << lps[lpsTest.size()-1] << "]\n";
-
-	// TEST KMP
-	text = "AAABBAAABAAABAAA";
-	pattern = "AAABAAA";
-	std::cout << "\n\n### TEST 4\nTesting KMP with:\npattern: " << pattern << "\ntext: " << text << "\nexpecting 5 and 9\n";
-		
-	std::vector<int> r2 = KMP(text, pattern);
-	for (int x : r2)
-	{
-		std::cout << "> Pattern found to occur at position: " << x << "\n";
-	}
-	
-	return 0;
-}
